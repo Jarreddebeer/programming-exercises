@@ -51,7 +51,6 @@ Node.prototype.printSelf = function(printChr) {
         console.log('|', '\\');
         console.log(this.left.chr, '', this.right.chr);
     }
-
     else if (hasLeft) {
         console.log('|');
         console.log(this.left.chr);
@@ -84,7 +83,7 @@ while (typeof node.left != 'undefined') {
     node = node.left;
 }
 
-// reference to soon-to-be root node
+// reference soon-to-be root node
 root = node;
 
 // perform rotation and inversion
