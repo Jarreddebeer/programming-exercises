@@ -38,14 +38,14 @@
 
 function Node(chr, left, right) {
     this.chr = chr;
-    if (typeof left != 'undefined') this.left = left;
-    if (typeof right != 'undefined') this.right = right;
+    this.left  = (typeof left  == 'undefined') ? null : left;
+    this.right = (typeof right == 'undefined') ? null : right;
 }
 
 Node.prototype.printSelf = function(printChr) {
     if (printChr) console.log(this.chr);
-    var hasLeft = typeof this.left != 'undefined';
-    var hasRight= typeof this.right != 'undefined';
+    var hasLeft = this.left != null;
+    var hasRight= this.right != null;
 
     if (hasLeft && hasRight) {
         console.log('|', '\\');
@@ -76,29 +76,17 @@ var root = a;
 // core algorithm //
 ////////////////////
 
-var node = root;
-var parents = [];
-
-// traverse to bottom, gathering stack of parents
-while (typeof node.left != 'undefined') {
-    parents.push(node);
-    node = node.left;
+function invertTree(n) {
+    if (n.left == null && n.right == null) {
+        return n;
+    }
+    var newRoot = invertTree(n.left);
+    n.left.left = n.right;
+    n.left.right = n;
+    n.left = null; n.right = null;
+    return newRoot;
 }
 
-// reference soon-to-be root node
-root = node;
-
-// perform rotation and inversion
-var parent;
-while (typeof (parent = parents.pop()) != 'undefined') {
-    if (typeof parent.right != 'undefined') {
-        node.left = parent.right;
-        parent.right = undefined;
-    } else node.left = null;
-    node.right = parent;
-    node = parent;
-}
-// cleanup
-node.left = undefined; node.right = undefined;
+root = invertTree(root);
 
 root.printSelf(true);
