@@ -63,13 +63,15 @@ Node.prototype.printSelf = function(printChr) {
     if (hasRight) this.right.printSelf(false);
 }
 
-var g = new Node('g');
-var f = new Node('f');
-var e = new Node('e');
-var d = new Node('d', f, g);
-var c = new Node('c');
-var b = new Node('b', d, e);
-var a = new Node('a', b, c);
+var g = new Node('g')
+  , f = new Node('f')
+  , e = new Node('e')
+  , d = new Node('d', f, g)
+  , c = new Node('c')
+  , b = new Node('b', d, e)
+  , a = new Node('a', b, c);
+
+var root = a;
 
 // core algorithm //
 ////////////////////
